@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        .pasdShow {
+            width: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .pasdShow p {
+            font-size: 18px;
+        }
+
+        .pasdShow input {
+            display: block;
+            padding: 12px 4px;
+            width: 100%;
+            border-width: 0 0 1px;
+            border-radius: 0;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, .12);
+            box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0);
+            font-size: 16px;
+            background: transparent;
+            outline: none;
+        }
+
+        .pasdShow img {
+            display: block;
+            position: absolute;
+            right: 0;
+            bottom: 10px;
+            width: 30px;
+            height: 15px;
+        }
+    </style>
+    <div class="pasdShow">
+        <p>1.密码显示影藏</p>
+        <div>
+            <img src="./invisible.png" id="pasdShowImg" />
+            <input type="password" id="pasdShowInput" />
+        </div>
+    </div>
+    <script>
+        var pasdShowImg = document.getElementById('pasdShowImg');
+        var pasdShowInput = document.getElementById('pasdShowInput');
+
+        pasdShowImg.addEventListener('click', function () {
+            if (pasdShowInput.type == 'password') {
+                pasdShowInput.type = 'text';
+                pasdShowImg.src = './visible.png';
+            } else {
+                pasdShowInput.type = 'password';
+                pasdShowImg.src = './invisible.png';
+            }
+        });
+    </script>
+
+
+    <style>
+        .keyboard {
+            width: 300px;
+            margin: 100px auto;
+            position: relative;
+        }
+
+        .keyboard_input {
+            width: 300px;
+            height: 50px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            z-index: 9;
+            position: absolute;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.2)
+        }
+
+        .keyboard_jiange {
+            width: 300px;
+            height: 22px;
+            position: absolute;
+            top: 3px;
+            left: 1px;
+            padding: 13px 0;
+            cursor: text;
+        }
+
+        .keyboard_jiange i {
+            display: block;
+            border-right: 1px solid #ccc;
+            width: 49px;
+            height: 22px;
+            float: left;
+        }
+
+        .keyboard_jiange i:last-child {
+            border-right: 0;
+        }
+
+        .keyboard_jiange b {
+            width: 10px;
+            height: 10px;
+            background: #000;
+            border-radius: 50%;
+            display: none;
+            margin: 6px auto;
+        }
+    </style>
+    <div class="keyboard">
+        <input type="password" minlength="6" maxlength="6" class="keyboard_input" />
+        <div class="keyboard_jiange">
+            <i><b></b></i>
+            <i><b></b></i>
+            <i><b></b></i>
+            <i><b></b></i>
+            <i><b></b></i>
+            <i><b></b></i>
+        </div>
+    </div>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script>
+        $(function () {
+            // 判断是否是删除，如果是删除的话，就把他自己包括都设置display:block
+            $('.keyboard_input').keyup(function (event) {
+                var leng = $(this).val().length;
+                var buttonNum = event.which || event.keyCode;
+                if (buttonNum == 8) {
+                    $(".keyboard_jiange").find("i").eq(leng).prevAll("i").find("b").css({ "display": "block" });
+                    $(".keyboard_jiange").find("i").eq(leng).nextAll("i").find("b").css({ "display": "none" });
+                    $(".keyboard_jiange").find("i").eq(leng).find("b").css({ "display": "none" });
+                } else {
+                    if (leng == 6) {
+                        $(".keyboard_jiange").find('b').css({ "display": "block" });
+                    } else if (leng == 0) {
+                        $(".keyboard_jiange").find('b').css({ "display": "none" });
+                    } else {
+                        $(".keyboard_jiange").find("i").eq(leng).prevAll("i").find("b").css({ "display": "block" });
+                        $(".keyboard_jiange").find("i").eq(leng).nextAll("i").find("b").css({ "display": "none" });
+                    }
+                }
+
+            })
+        })
+    </script>
+</body>
+</html>
